@@ -31,6 +31,7 @@ public class Calc {
         if (bits.length > 2) {
             c = Integer.parseInt(bits[2]);
         }
+        
         if (NumPlus) {
             return a + b + c;
         } else if (NumPlus2) {
