@@ -24,7 +24,7 @@ public class Calc {
             return a - b;
         }
 
-        throw new RuntimeException("해석 불가");
+        throw new RuntimeException("해석 불가 : 올바른 계산식이 아님.");
     }
 
 }
