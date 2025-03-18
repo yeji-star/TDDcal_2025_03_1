@@ -7,12 +7,24 @@ public class Calc {
     public static int run(String exp) {
 
         String[] bits = null;
-
         System.out.println("exp : " + exp);
+
+        int sum = 0;
+
+        for (int i = 0; i < bits.length; i++) {
+            sum+= Integer.parseInt(bits[i]);
+        }
+
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+
 
         exp = exp.replace("- ", "+ -");
 
         System.out.println("exp2 : " + exp);
+
 
         boolean NumPlus = exp.contains("+");
         boolean NumPlus2 = exp.contains("*");
@@ -24,16 +36,16 @@ public class Calc {
             bits = exp.split(" \\* ");
         }
 
-        int a = Integer.parseInt(bits[0]);
-        int b = Integer.parseInt(bits[1]);
-        int c = 0;
 
         if (bits.length > 2) {
+            a = Integer.parseInt(bits[0]);
+            b = Integer.parseInt(bits[1]);
             c = Integer.parseInt(bits[2]);
+            d = Integer.parseInt(bits[3]);
         }
-        
+
         if (NumPlus) {
-            return a + b + c;
+            return sum;
         } else if (NumPlus2) {
             return a * b * c;
         }
