@@ -1,20 +1,28 @@
 package org.example;
 
+
+
 public class Calc {
 
     public static int run(String exp) {
 
-        boolean needToPlus = exp.contains("+"); // contains: 포함하다
-        boolean needToMinus = exp.contains("-");
-
         String[] bits = null;
 
-        if (needToPlus) {
-            bits = exp.split(" \\+ ");
-        } else if (needToMinus) {
-            bits = exp.split(" - ");
-        }
+        System.out.println("exp : " + exp);
 
+        exp = exp.replace("- ", "+ -");
+
+        System.out.println("exp2 : " + exp);
+
+        boolean NumPlus = exp.contains("+");
+        boolean NumPlus2 = exp.contains("*");
+
+
+        if (NumPlus) {
+            bits = exp.split(" \\+ ");
+        } else if (NumPlus2) {
+            bits = exp.split(" \\* ");
+        }
 
         int a = Integer.parseInt(bits[0]);
         int b = Integer.parseInt(bits[1]);
@@ -23,15 +31,14 @@ public class Calc {
         if (bits.length > 2) {
             c = Integer.parseInt(bits[2]);
         }
-
-
-        if (needToPlus) {
+        if (NumPlus) {
             return a + b + c;
-        } else if (needToMinus) {
-            return a - b;
+        } else if (NumPlus2) {
+            return a * b * c;
         }
 
-        throw new RuntimeException("해석 불가 : 올바른 계산식이 아님.");
+        throw new RuntimeException("해석 불가 : 올바른 계산식이 아닙니다");
+
     }
 
 }
