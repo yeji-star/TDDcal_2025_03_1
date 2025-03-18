@@ -4,20 +4,27 @@ public class Calc {
 
     public static int run(String exp) {
 
-        String[] bits = exp.split(" ");
+        boolean needToPlus = exp.contains("+"); // contains: 포함하다
+        boolean needToMinus = exp.contains("-");
+
+        String[] bits = null;
+
+        if(needToPlus) {
+            bits = exp.split(" \\+ ");
+        }else if(needToMinus) {
+            bits = exp.split(" - ");
+        }
 
         int a = Integer.parseInt(bits[0]);
-        int b = Integer.parseInt(bits[2]);
+        int b = Integer.parseInt(bits[1]);
 
-
-        if (bits[1].equals("+")) {
+        if (needToPlus) {
             return a + b;
-        } else if (bits[1].equals("-")) {
+        } else if (needToMinus) {
             return a - b;
         }
 
-
-        return a + b;
+        throw new RuntimeException("해석 불가");
     }
 
 }

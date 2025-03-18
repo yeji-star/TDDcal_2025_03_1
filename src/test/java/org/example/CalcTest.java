@@ -14,7 +14,7 @@ public class CalcTest {
     }
 
     @Test
-    @DisplayName("2+1==3")
+    @DisplayName("2 + 1 == 3")
     public void test2() {
         assertThat(Calc.run("2 + 1")).isEqualTo(3);
     }
