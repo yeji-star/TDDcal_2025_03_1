@@ -4,6 +4,8 @@ public class Calc {
 
     public static int run(String exp) {
 
+        exp = exp.replace("- ", "+ -");
+
         boolean plus = exp.contains("+");
         boolean multi = exp.contains("*");
 
@@ -18,7 +20,7 @@ public class Calc {
         // boolean Plus = exp.contains("+"); // contain : 감싸다
 
         if (plus) {
-            exp = exp.replace("- ", "+ -");
+
 
             String[] bits = exp.split(" \\+ ");
             int sum = 0;
