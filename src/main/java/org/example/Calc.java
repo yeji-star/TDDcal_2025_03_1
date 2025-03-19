@@ -25,7 +25,7 @@ public class Calc {
         if (exp.contains("(") && exp.contains(")")) {
 
             if (exp.contains("*")) {
-                
+
                 exp = exp.replace("(", "");
                 exp = exp.replace(")", "");
 
