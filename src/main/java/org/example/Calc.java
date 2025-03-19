@@ -1,57 +1,53 @@
 package org.example;
 
-
-
 public class Calc {
 
     public static int run(String exp) {
 
-        String[] bits = null;
-        System.out.println("exp : " + exp);
-
-        int sum = 0;
-
-        for (int i = 0; i < bits.length; i++) {
-            sum+= Integer.parseInt(bits[i]);
-        }
-
-        int a = 0;
-        int b = 0;
-        int c = 0;
-        int d = 0;
-
+        boolean plus = exp.contains("+");
+        boolean multi = exp.contains("*");
 
         exp = exp.replace("- ", "+ -");
 
-        System.out.println("exp2 : " + exp);
+        // boolean Plus = exp.contains("+"); // contain : 감싸다
+        if (plus) {
+
+            String[] bits = exp.split(" \\+ ");
 
 
-        boolean NumPlus = exp.contains("+");
-        boolean NumPlus2 = exp.contains("*");
+            for (int i = 0; i < bits.length; i++) {
+                // bits의 길이가 i보다 클떄까지 i가 1씩 늘어나는 걸 반복
+
+                int sum = 0;
+
+                sum = Integer.parseInt(bits[i]);
+                // 그래서 그 배열만큼 sum에 추가
+                if (plus) {
+                    sum += Integer.parseInt(bits[i]);
+                } else if (multi) {
+                    sum *= Integer.parseInt(bits[i]);
+                }
+
+                return sum;
+            }
 
 
-        if (NumPlus) {
-            bits = exp.split(" \\+ ");
-        } else if (NumPlus2) {
-            bits = exp.split(" \\* ");
-        }
+        } else if (multi) {
 
+            String[] bits = exp.split(" \\* ");
 
-        if (bits.length > 2) {
-            a = Integer.parseInt(bits[0]);
-            b = Integer.parseInt(bits[1]);
-            c = Integer.parseInt(bits[2]);
-            d = Integer.parseInt(bits[3]);
-        }
+            int sum = 1;
 
-        if (NumPlus) {
+            for (int i = 0; i < bits.length; i++) {
+                sum *= Integer.parseInt(bits[i]);
+            }
+
             return sum;
-        } else if (NumPlus2) {
-            return a * b * c;
         }
 
-        throw new RuntimeException("해석 불가 : 올바른 계산식이 아닙니다");
 
+
+        throw new RuntimeException("실행 불가");
     }
 
 }
