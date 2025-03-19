@@ -1,13 +1,14 @@
 package org.example;
 
-
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Calc {
 
     public static int run(String exp) {
-
+// 괄호 제거
+        exp = stripOuterBrackets(exp);
+//단일항 들어오면 리턴
         if (!exp.contains(" ")) {
             return Integer.parseInt(exp);
         }
@@ -50,7 +51,7 @@ public class Calc {
             exp = exp.replace("(", "");
             exp = exp.replace(")", "");
 
-            if(plus) {
+            if (plus) {
                 String[] bits = exp.split(" \\+ ");
                 int sum = 0;
 
@@ -63,7 +64,7 @@ public class Calc {
 
                 return sum;
             }
-         }
+        }
 
         if (plus) {
 
@@ -79,9 +80,7 @@ public class Calc {
 
             return sum;
 
-        }
-
-        else if (multi) {
+        } else if (multi) {
 
             String[] bits = exp.split(" \\* ");
 
@@ -96,6 +95,15 @@ public class Calc {
 
         throw new RuntimeException("실행 불가");
     }
+
+    private static String stripOuterBrackets(String exp) {
+        if (exp.charAt(0) == '(' && exp.charAt(exp.length() - 1) == ')') {
+            exp = exp.substring(1, exp.length() - 1);
+        }
+        return exp;
+    }
 }
+
+
 
 
