@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 public class Calc {
 
     public static int run(String exp) {
-        // 괄호 제거
-        exp = stripOuterBrackets(exp);
+
+        exp = exp.trim(); // 양 옆의 쓸데없는 공백 제거
+        exp = stripOuterBrackets(exp); // 괄호 제거
         //단일항 들어오면 리턴
         if (!exp.contains(" ")) {
             return Integer.parseInt(exp);
@@ -20,27 +21,16 @@ public class Calc {
 
 
             if (Split) {
-                int barcketsCount = 0;
-                int splitPointIndex = -1;
 
-                for (int i = 0; i < exp.length(); i++) {
-                    if (exp.charAt(i) == '(') {
-                        barcketsCount++;
-                    } else if (exp.charAt(i) == ')') {
-                        barcketsCount--;
-                    }
-                    if (barcketsCount == 0) {
-                        splitPointIndex = i;
-                        break;
-                    }
-                }
+                int splitPointIndex = findSplitPointIndex(exp); // 어디서 잘라야 되는가 하청을 맡김
 
-                String firstExp = exp.substring(0, splitPointIndex + 1);
-                String secondExp = exp.substring(splitPointIndex + 4);
+                String firstExp = exp.substring(0, splitPointIndex);
+                String secondExp = exp.substring(splitPointIndex + 1);
 
-                char operator = exp.charAt(splitPointIndex + 2);
+                char operator = exp.charAt(splitPointIndex); // 내가 방금 전에 자른 자리
 
-                exp = Calc.run(firstExp) + " " +operator + " " + secondExp;
+                exp = Calc.run(firstExp) + " " +operator + " " + Calc.run(secondExp);
+                // 수식이 아직 해결되지 않았기 때문에 Calc.run
 
                 return Calc.run(exp);
 
@@ -98,7 +88,33 @@ public class Calc {
             throw new RuntimeException("실행 불가");
         }
 
-        private static String stripOuterBrackets(String exp) {
+    private static int findSplitPointIndex(String exp) {
+        int index = findSplitPointIndexBy(exp, '+'); // 하청 맡김 "쪼갤 수 있는 더하기 찾아주셈요"
+
+        if (index >= 0) return index;
+
+        return findSplitPointIndexBy(exp, '*'); // 못찾았으면 쪼갤 수 있는 곱하기 찾아
+    }
+
+    private static int findSplitPointIndexBy(String exp, char findChar) {
+        int barcketsCount = 0;
+
+
+        for (int i = 0; i < exp.length(); i++) {
+            char c = exp.charAt(i);
+
+            if (c == '(') {
+                barcketsCount++;
+            } else if (c == ')') {
+                barcketsCount--;
+            } else if (c == findChar) {
+                if (barcketsCount == 0) return i;
+            }
+        }
+        return -1;
+    }
+
+    private static String stripOuterBrackets(String exp) {
 
             int outerBracketsCount = 0;
 
