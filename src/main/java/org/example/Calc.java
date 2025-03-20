@@ -25,7 +25,6 @@ public class Calc {
         boolean plus = exp.contains(" + ") || exp.contains(" - ");
         boolean multi = exp.contains(" * ");
         boolean Split = exp.contains("(") | exp.contains(")");
-        boolean minus = exp.contains("-");
         boolean com = plus && multi;
 
 
